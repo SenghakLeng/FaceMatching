@@ -7,6 +7,14 @@ import cv2
 import numpy as np
 import shutil
 
+def load_custom_css():
+    custom_css = """
+    <style>
+    @import url('./style.css');
+    </style>
+    """
+    st.markdown(custom_css, unsafe_allow_html=True)
+
 
 
 
@@ -254,7 +262,7 @@ def main():
         pass
     else:
         os.mkdir(database_path)
-
+    load_custom_css()
     st.set_page_config(
     page_title="AI Face Matching Demo",
     layout="wide",
