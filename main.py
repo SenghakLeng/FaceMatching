@@ -262,12 +262,13 @@ def main():
         pass
     else:
         os.mkdir(database_path)
-    load_custom_css()
+    
     st.set_page_config(
     page_title="AI Face Matching Demo",
     layout="wide",
     initial_sidebar_state="expanded"
     )
+    load_custom_css()
     selected = top_page_stateless()
     if selected == 'Test between 2 images':
         test_2_img_page() 
