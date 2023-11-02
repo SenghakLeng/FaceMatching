@@ -254,7 +254,12 @@ def main():
         pass
     else:
         os.mkdir(database_path)
-        
+    hide_github_icon = """
+    #GithubIcon {
+    visibility: hidden;
+    }
+    """
+    st.markdown(hide_github_icon, unsafe_allow_html=True)
     st.set_page_config(
     page_title="AI Face Matching Demo",
     layout="wide",
