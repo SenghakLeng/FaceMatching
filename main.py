@@ -298,6 +298,20 @@ def main():
     layout="wide",
     initial_sidebar_state="expanded"
     )
+    hide = """
+    <style>
+        .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob,
+        .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137,
+        .viewerBadge_text__1JaDK {
+        display: none;
+        }
+        # footer { visibility: hidden; } 
+        header { visibility: hidden; }
+        #MainMenu {visibility: visible;}
+        footer {visibility: hidden;}
+    </style>
+    """
+    st.markdown(hide, unsafe_allow_html=True)
     load_custom_css()
     selected = top_page_stateless()
     if selected == 'Test between 2 images':
