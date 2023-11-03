@@ -6,6 +6,14 @@ from PIL import Image
 import cv2
 import numpy as np
 import shutil
+from streamlit import components
+components.html(
+    """
+    <link rel="stylesheet" href="styles.css">
+    """,
+    height=0,
+)
+
 
 def load_custom_css():
     custom_css = """
@@ -147,16 +155,16 @@ def top_page_stateless():
             menu_icon='list',
             default_index= 0,
         )
-    hide_github_icon = """
-            header {visibility: hidden;}
-            """
-    st.markdown(hide_github_icon, unsafe_allow_html=True)
-    hide_streamlit_style = """
-            <style>
-            footer {visibility: hidden;}
-            </style>
-            """
-    st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+    st.markdown(
+        """
+        <style>
+        div[class="fullScreenFrame"] > div[data-testid="stHorizontalBlock"] {
+            margin-top: -50px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
     return selected
 
 def test_2_img_page():
