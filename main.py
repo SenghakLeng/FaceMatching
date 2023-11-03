@@ -149,7 +149,7 @@ def top_page_stateless():
         )
     hide_github_icon = """
             #GithubIcon {visibility: hidden;}
-            footer {visibility: hidden;}
+            header {visibility: hidden;}
             """
     st.markdown(hide_github_icon, unsafe_allow_html=True)
     hide_streamlit_style = """
