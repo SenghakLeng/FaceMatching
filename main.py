@@ -148,13 +148,11 @@ def top_page_stateless():
             default_index= 0,
         )
     hide_github_icon = """
-            #GithubIcon {visibility: hidden;}
             header {visibility: hidden;}
             """
     st.markdown(hide_github_icon, unsafe_allow_html=True)
     hide_streamlit_style = """
             <style>
-            #MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
             </style>
             """
