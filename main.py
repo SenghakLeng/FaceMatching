@@ -73,7 +73,7 @@ def database_page():
                                 type=['jpg', 'jpeg', 'png'])
         if images is not None:
             for im in images:
-                upload_img = Image.open(im)
+                upload_img = Image.open(im).convert("RGB")
                 upload_img.save(os.path.join('./database_img', im.name))
     with tab1:
         directory = './database_img'
