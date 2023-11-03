@@ -6,19 +6,6 @@ from PIL import Image
 import cv2
 import numpy as np
 import shutil
-from streamlit import components
-
-
-
-
-def load_custom_css():
-    custom_css = """
-    <style>
-    @import url('./style.css');
-    </style>
-    """
-    st.markdown(custom_css, unsafe_allow_html=True)
-
 
 
 
@@ -133,22 +120,6 @@ def verifcation_page(drawed_img1, drawed_img2, verification_stat):
                         unsafe_allow_html=True)
 
 def top_page_stateless():
-    components.html(
-    """
-    <link rel="stylesheet" href="styles.css">
-    """,
-    height=0,
-    )
-    st.markdown(
-            """
-            <style>
-            div[class="fullScreenFrame"] > div[data-testid="stHorizontalBlock"] {
-                margin-top: -50px;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True,
-        )
     col1, col2 = st.columns([9,1])
     with col1: 
         st.title('AI Face Matching Demo')
