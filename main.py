@@ -147,6 +147,18 @@ def top_page_stateless():
             menu_icon='list',
             default_index= 0,
         )
+    hide_github_icon = """
+            #GithubIcon {visibility: hidden;}
+            footer {visibility: hidden;}
+            """
+    st.markdown(hide_github_icon, unsafe_allow_html=True)
+    hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
     return selected
 
 def test_2_img_page():
