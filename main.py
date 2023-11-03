@@ -13,6 +13,17 @@ components.html(
     """,
     height=0,
 )
+st.markdown(
+        """
+        <style>
+        div[class="fullScreenFrame"] > div[data-testid="stHorizontalBlock"] {
+            margin-top: -50px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
 
 
 def load_custom_css():
