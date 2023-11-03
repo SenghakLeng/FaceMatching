@@ -283,7 +283,6 @@ def main():
     </style>
     """
     st.markdown(hide, unsafe_allow_html=True)
-    load_custom_css()
     selected = top_page_stateless()
     if selected == 'Test between 2 images':
         test_2_img_page() 
