@@ -34,7 +34,7 @@ def face_recognition(img1, img2):
     image2 = cv2.cvtColor(image2, cv2.COLOR_RGBA2BGR)
     try:
         verification_result = DeepFace.verify(img1_path=image1, img2_path= image2, 
-                                            detector_backend='opencv',
+                                            detector_backend='mtcnn',
                                             model_name='ArcFace')
         verify_stat = verification_result['verified']
 
