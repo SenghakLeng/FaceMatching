@@ -6,6 +6,7 @@ from PIL import Image
 import cv2
 import numpy as np
 import shutil
+from fixOrientaion import fixImage
 
 
 
@@ -26,14 +27,15 @@ def draw_box_on_img(img, bbox, ver_stat):
 
 def face_recognition(img1, img2):
     
-    image1 = np.array(Image.open(img1))
-    image2 = np.array(Image.open(img2))
+    image1 = np.array(fixImage(img1))
+    image2 = np.array(fixImage(img2))
     
     image1 = cv2.cvtColor(image1, cv2.COLOR_RGBA2BGR)
     image2 = cv2.cvtColor(image2, cv2.COLOR_RGBA2BGR)
     try:
         verification_result = DeepFace.verify(img1_path=image1, img2_path= image2, 
-                                            detector_backend='opencv')
+                                            detector_backend='opencv',
+                                            model_name='ArcFace')
         verify_stat = verification_result['verified']
 
         img1_box_x = verification_result['facial_areas']['img1']['x']
@@ -55,9 +57,8 @@ def face_recognition(img1, img2):
         return draw_img1, draw_img2, verify_stat
     
     except ValueError as e:
-        st.error('The face is not detected correctly!!!')
+        st.error('The face is not detected correctly!!! Please check the alignment and try again!')
     except Exception as e:
-
         st.error("Error: {}".format(str(e)))
     
 
@@ -73,7 +74,7 @@ def database_page():
                                 type=['jpg', 'jpeg', 'png'])
         if images is not None:
             for im in images:
-                upload_img = Image.open(im).convert("RGB")
+                upload_img = fixImage(im).convert("RGB")
                 upload_img.save(os.path.join('./database_img', im.name))
     with tab1:
         directory = './database_img'
@@ -111,12 +112,12 @@ def verifcation_page(drawed_img1, drawed_img2, verification_stat):
     if verification_stat:
         with ncol2:
             st.markdown("<h1 style='text-align: center; font-size: 30px; \
-                        color: green; background-color: white;'>Verification Success!!!</h1>", 
+                        color: green;'>Verification Success!!!</h1>", 
                         unsafe_allow_html=True)
     else: 
         with ncol2:
             st.markdown("<h1 style='text-align: center; font-size: 30px; \
-                        color: red; background-color: white;'>Face unmatched!!!</h1>", 
+                        color: red;'>Face unmatched!!!</h1>", 
                         unsafe_allow_html=True)
 
 def top_page_stateless():
@@ -159,13 +160,13 @@ def test_2_img_page():
             t1img1 = st.file_uploader('Upload your reference image...',accept_multiple_files= False, 
                                       type = ['jpg', 'jpeg', 'png'])
             if t1img1 is not None:
-                st.image(Image.open(t1img1).resize((640, 640)), caption= 'This is your reference image')
+                st.image(fixImage(t1img1), caption= 'This is your reference image')
                 # st.write(t1img1)
         with t1col2: 
             t1img2 = st.file_uploader('Upload your test image...',accept_multiple_files= False, 
                                       type = ['jpg', 'jpeg', 'png'],)
             if t1img2 is not None:
-                st.image(Image.open(t1img2).resize((640, 640)), caption= 'This is your input image')
+                st.image(fixImage(t1img2), caption= 'This is your input image')
         if (t1img1 is not None) and (t1img2 is not None):
             try:
                 newimg1, newimg2, verification_stat = face_recognition(t1img1, t1img2)
@@ -180,11 +181,11 @@ def test_2_img_page():
             t2img1 =  st.file_uploader('Upload your reference image..',accept_multiple_files= False, 
                                       type = ['jpg', 'jpeg', 'png'])
             if t2img1 is not None:
-                st.image(Image.open(t2img1).resize((640,640)), caption= 'This is your reference image')
+                st.image(fixImage(t2img1), caption= 'This is your reference image')
         with t2col2:
             t2img2 = st.camera_input('Take a photo to verify image')
             if t2img2 is not None:
-                st.image(Image.open(t2img2).resize((640,640)), caption = 'This is your captured image')
+                st.image(fixImage(t2img2), caption = 'This is your captured image')
         if (t2img1 is not None) and (t2img2 is not None):
             try: 
                 newimg1, newimg2, verification_stat = face_recognition(t2img1, t2img2)
@@ -201,7 +202,7 @@ def test_img_database_page():
         ncol1, ncol2, ncol3 = st.columns(3)
         with ncol2:
             if img_up is not None:
-                st.image(Image.open(img_up).resize((640,640)), caption='This is your test image')
+                st.image(fixImage(img_up), caption='This is your test image')
         if len(os.listdir('./database_img/')) > 0:
             try:
                 for f in os.listdir('./database_img'):
