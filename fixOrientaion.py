@@ -44,7 +44,7 @@ def fixImage(image, size =(640, 640)):
     w, h =image.size
     image = fix_image_orientation(image)
     if w > size[0]:
-    cropped_image = crop_to_square(image).resize(size)
+        cropped_image = crop_to_square(image).resize(size)
     else: 
         cropped_image = image.resize(size)
     return cropped_image
